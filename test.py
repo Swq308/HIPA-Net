@@ -12,7 +12,7 @@ from datasets.dataset_synapse import Synapse_dataset
 from datasets.dataset_AVT import AVT_dataset
 from utils import test_single_volume_Synapse
 from utils import test_single_volume_AVT
-from model.DPARNet import DPARNet
+from model.HIPANet import HIPANet
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--volume_path', type=str,
@@ -31,9 +31,9 @@ parser.add_argument('--test_save_dir', type=str, default='', help='saving predic
 parser.add_argument('--deterministic', type=int,  default=1, help='whether use deterministic training')
 parser.add_argument('--base_lr', type=float,  default=0.01, help='segmentation network learning rate')
 parser.add_argument('--batch_size', type=int,
-                    default=4, help='batch_size per gpu')
+                    default=8, help='batch_size per gpu')
 parser.add_argument('--max_epochs', type=int,
-                    default=150, help='maximum epoch number to train')
+                    default=300, help='maximum epoch number to train')
 parser.add_argument('--seed', type=int, default=1234, help='random seed')
 parser.add_argument('--model_name', type=str,
                     default=" ", help='the name of network')
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     args.Dataset = dataset_config[dataset_name]['Dataset']
     args.list_dir = dataset_config[dataset_name]['list_dir']
 
-    net = DPARNet(num_classes=args.num_classes).cuda()
+    net = HIPANet(num_classes=args.num_classes).cuda()
     net.load_state_dict(torch.load(args.checkpoint_path))
 
     log_folder = args.checkpoint_path
