@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 from trainer import trainer
-from model.DPARNet import DPARNet
+from model.HIPANet import HIPANet
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--train_path', type=str,
@@ -72,6 +72,6 @@ if __name__ == "__main__":
 
     if not os.path.exists(args.checkpoint_path):
         os.makedirs(args.checkpoint_path)
-    net = DPARNet(num_classes=args.num_classes).to(device)
+    net = HIPANet(num_classes=args.num_classes).to(device)
     trainer(args, net)
 
